@@ -18,10 +18,11 @@ export class App extends Component {
     showModal: false,
     modalData: null,
   };
-  // -----------------------------------------------------------
+
   async componentDidUpdate(prevProps, prevState) {
     if (
       prevState.searchValue !== this.state.searchValue ||
+      // this.state.searchValue !== ''
       prevState.page !== this.state.page
     ) {
       const imagesData = await fetchImg(
@@ -52,7 +53,6 @@ export class App extends Component {
       }));
     }
   }
-  // ------------------------------------------------------------------------
 
   handleOnSubmit = searchValue =>
     this.setState({
@@ -62,7 +62,7 @@ export class App extends Component {
       showBtnLoadMore: false,
       showLoader: true,
     });
-  // -----------------------------------------------------------------------
+
   normlazizeImagesData(imagesData) {
     return imagesData.map(({ id, webformatURL, largeImageURL, tags }) => ({
       id,
@@ -71,21 +71,21 @@ export class App extends Component {
       tags,
     }));
   }
-  // ------------------------------------------------------------------------
+
   handleOnLoadMoreBtn = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
       showLoader: true,
     }));
   };
-  // ------------------------------------------------------------------------
+
   handleImageClick = (modalSrc, alt) => {
     this.setState({
       modalData: { src: modalSrc, alt: alt },
       showModal: true,
     });
   };
-  // ------------------------------------------------------------------------
+
   closeModal = () => {
     this.setState({ showModal: false });
   };
